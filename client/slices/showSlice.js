@@ -4,6 +4,11 @@
 // action types will be something the toolkit does under the hood
 import { createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 
+// createAsyncThunk takes a action type
+// and payloadCreator (a callback function that return an async promise)
+// then return 3 action types (pending, fulfilled, rejected) based on the fetch request
+
+// showslice is like the reducer that allows different routes as action types
 export const searchTV = createAsyncThunk(
   'shows/searchTV',
   async (searchCriteria, { rejectWithValue }) => {
@@ -30,6 +35,7 @@ export const searchTV = createAsyncThunk(
 export const addFavorite = createAsyncThunk(
   'shows/addFavorite',
   async (favoriteObj, { rejectWithValue }) => {
+    console.log('before fetch', 'hi')
     try {
       const response = await fetch('http://localhost:3000/Favorite/Add', {
         method: 'POST',
@@ -94,8 +100,6 @@ export const deleteFavorite = createAsyncThunk(
   }
 );
 
-
-
 const showSlice = createSlice({
   name: 'shows',
   //will be empty - populated for testing purposes
@@ -106,6 +110,8 @@ const showSlice = createSlice({
     error: null,
     showAddButton: true,
     showDeleteButton: false
+    //showRecommendation: true,
+    // showFavorites: false,
   },
   reducers: {},
   // extraReducers is a separate object for async reducers (builder is boilerplate, then we have addCases instead of switch cases)
@@ -122,6 +128,8 @@ const showSlice = createSlice({
         state.shows = action.payload; // Assuming the backend returns an array of shows
         state.showAddButton = true,
         state.showDeleteButton = false
+        //state.showRecommendation = true,
+        //state.showFavorites = false,
       })
       .addCase(searchTV.rejected, (state, action) => {
         state.loading = false;
@@ -132,8 +140,10 @@ const showSlice = createSlice({
         state.error = null;
       })
       .addCase(addFavorite.fulfilled, (state, action) => {
-        state.loading = false;
         console.log('hi')// Assuming the backend returns an array of shows
+        state.loading = false;
+        // state.shows = action.payload;
+        
       })
       .addCase(addFavorite.rejected, (state, action) => {
         state.loading = false;

@@ -20,8 +20,8 @@ favoriteController.addFavorite = async (req, res, next) => {
     poster_path: poster_path
   });
 
-  res.locals.addFav = favorites;
-  await favorites.save();
+  res.locals.newFav = favorites;
+  //await favorites.save();
   return next();  
   } catch (err) {
     next({

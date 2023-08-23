@@ -2,7 +2,7 @@
 // createSlice will reduce the amount of boilerplate code
 // allows us to have action types, action creators, and reducers all in one
 // action types will be something the toolkit does under the hood
-import { createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 // createAsyncThunk takes a action type
 // and payloadCreator (a callback function that return an async promise)
@@ -70,7 +70,7 @@ export const displaysFavorites = createAsyncThunk(
       if (!response.ok) {
         throw new Error('Failed to fetch.');
       }
-
+      console.log('type of response is: ', typeof response);
       return await response.json();
     } catch (error) {
       return rejectWithValue(error.message);
@@ -88,7 +88,7 @@ export const deleteFavorite = createAsyncThunk(
           'Content-Type': 'application/json',
         },
       });
-      
+
       if (!response.ok) {
         throw new Error('Failed to fetch.');
       }
@@ -123,13 +123,15 @@ const showSlice = createSlice({
       })
       .addCase(searchTV.fulfilled, (state, action) => {
         state.loading = false;
-        console.log(action)
-        console.log(action.payload)
+        console.log(action);
+        console.log(action.payload);
         state.shows = action.payload; // Assuming the backend returns an array of shows
+
         state.showAddButton = true,
         state.showDeleteButton = false
         //state.showRecommendation = true,
         //state.showFavorites = false,
+
       })
       .addCase(searchTV.rejected, (state, action) => {
         state.loading = false;
@@ -140,10 +142,12 @@ const showSlice = createSlice({
         state.error = null;
       })
       .addCase(addFavorite.fulfilled, (state, action) => {
+        state.loading = false;
         console.log('hi')// Assuming the backend returns an array of shows
         state.loading = false;
         // state.shows = action.payload;
         
+
       })
       .addCase(addFavorite.rejected, (state, action) => {
         state.loading = false;
@@ -155,10 +159,10 @@ const showSlice = createSlice({
       })
       .addCase(displaysFavorites.fulfilled, (state, action) => {
         state.loading = false;
-        console.log(action.payload)
-        state.shows = action.payload,// Assuming the backend returns an array of shows
-        state.showAddButton = false,
-        state.showDeleteButton = true
+        console.log(action.payload);
+        (state.shows = action.payload), // Assuming the backend returns an array of shows
+          (state.showAddButton = false),
+          (state.showDeleteButton = true);
       })
       .addCase(displaysFavorites.rejected, (state, action) => {
         state.loading = false;
@@ -170,7 +174,7 @@ const showSlice = createSlice({
       })
       .addCase(deleteFavorite.fulfilled, (state, action) => {
         state.loading = false;
-        state.shows = action.payload// Assuming the backend returns an array of shows
+        state.shows = action.payload; // Assuming the backend returns an array of shows
       })
       .addCase(deleteFavorite.rejected, (state, action) => {
         state.loading = false;

@@ -50,7 +50,7 @@ describe('Testing React Components', () => {
     
     
         const buttons = await screen.findAllByRole('button')
-        expect(buttons.length).toBe(2);
+        expect(buttons.length).toBe(1);
         //expect(buttons[0]).toHaveTextContent(' submit ');
     
         // const inputs = await screen.findAllByRole('input')

@@ -4,6 +4,7 @@ const connectDB = require('./db')
 connectDB()
 const showRouter = require('./routes/shows')
 const favoriteRouter = require('./routes/favorite')
+const userRouter = require('./routes/user');
 
 app.use(express.json());
 const cors = require('cors')
@@ -18,6 +19,10 @@ app.use(cors())
 
 app.use('/TVShow', showRouter);
 app.use('/Favorite', favoriteRouter);
+// app.use('/User', (req,res, nex) =>{
+//   console.log('in server.js')
+// }, userRouter);
+app.use('/User', userRouter);
 
 app.use('*', (req, res) => res.status(404).send('Not Found'));
 

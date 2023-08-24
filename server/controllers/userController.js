@@ -12,9 +12,13 @@ userController.signup = async (req, res, next) => {
             res.locals.newUser = {message: "User already exist"}
         } else {
             console.log("user not exist")
+            console.log('received from the front',username,password)
             const newUser = await User.create({username: username, password: password});
+            console.log('hello')
+            console.log('new user in db',newUser)
             res.locals.newUser = {message: "User created", newUser: newUser};
         }
+        console.log('hey')
         return next();
     }
     catch(err) {return next(err)};

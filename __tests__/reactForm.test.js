@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { SignUpForm } from '../client/components/TestDisplay.jsx';
+import { SignUpForm } from '../client/components/SignUp.jsx';
 
 describe('SignupForm', () => {
   it('renders without crashing', () => {

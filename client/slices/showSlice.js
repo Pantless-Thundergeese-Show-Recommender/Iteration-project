@@ -110,8 +110,6 @@ const showSlice = createSlice({
     error: null,
     showAddButton: true,
     showDeleteButton: false
-    //showRecommendation: true,
-    // showFavorites: false,
   },
   reducers: {},
   // extraReducers is a separate object for async reducers (builder is boilerplate, then we have addCases instead of switch cases)
@@ -129,8 +127,6 @@ const showSlice = createSlice({
 
         state.showAddButton = true,
         state.showDeleteButton = false
-        //state.showRecommendation = true,
-        //state.showFavorites = false,
 
       })
       .addCase(searchTV.rejected, (state, action) => {

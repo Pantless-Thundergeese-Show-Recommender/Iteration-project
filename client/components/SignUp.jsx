@@ -1,23 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-export const SignUpForm = () => {
+const SignUp = () => {
+    const navigate = useNavigate();
+
     const[username, setUsername] = useState('')
     const[password, setPassword] = useState('')
     
     const getUsername = e => {
         setUsername(e.target.value)
-        // const { input, value } = e.target
-        // switch(input){
-        //     case 'username':
-        //         setUsername(value)
-        //         break
-        //     case 'password':
-        //         setPassword(value)
-        //         break
-        //     default:
-        //         return
-        // }
     }
     const getPassword = e => {
         setPassword(e.target.value)
@@ -28,12 +20,13 @@ export const SignUpForm = () => {
 
     const handleSubmitError = e => {
         e.preventDefault()
-        setUsernameError(username? '' : 'Username field is required')
+        setUsernameError(username ? '' : 'Username field is required')
         setPasswordError(password ? '' : 'Password field is required')
       }
 
     const handleSubmit = async(e) => {
         e.preventDefault()
+
         try { 
             console.log('before axios')
             console.log('username', username)
@@ -42,7 +35,8 @@ export const SignUpForm = () => {
             {username: username, password: password});
             console.log('after axios')
             if(result){
-                console.log('result',result)
+                console.log('result', result)
+                navigate("/Home");
             }
         }
         catch(err) {
@@ -82,3 +76,5 @@ export const SignUpForm = () => {
     )
     
 }
+
+export default SignUp

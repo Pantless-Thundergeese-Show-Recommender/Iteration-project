@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-const SignUp = () => {
-    const navigate = useNavigate();
-
+ const SignIn = () => {
     const[username, setUsername] = useState('')
     const[password, setPassword] = useState('')
+    const navigate = useNavigate();
     
     const getUsername = e => {
         setUsername(e.target.value)
@@ -20,23 +19,23 @@ const SignUp = () => {
 
     const handleSubmitError = e => {
         e.preventDefault()
-        setUsernameError(username ? '' : 'Username field is required')
-        setPasswordError(password ? '' : 'Password field is required')
+        setUsernameError(username? '' : 'Please try again')
+        setPasswordError(password ? '' : 'Please try again')
       }
 
     const handleSubmit = async(e) => {
         e.preventDefault()
-
+    
         try { 
-            console.log('before axios')
-            console.log('username', username)
-            console.log('password', password)
-            const result = await axios.post('/User/signup', 
+            console.log('username1', username)
+            console.log('password2', password)
+            const result = await axios.post('/User', 
             {username: username, password: password});
-            console.log('after axios')
-            if(result){
-                console.log('result', result)
+            console.log('result',result);
+            if(result.data === true){    
                 navigate("/Home");
+            }else{
+                navigate('/SignUp')
             }
         }
         catch(err) {
@@ -45,7 +44,7 @@ const SignUp = () => {
     }
 
     return (
-        <div className="signUpForm">
+        <div className="signInForm">
         <div className="formGroup">
         <label htmlFor="username">Username</label>
         <input 
@@ -71,10 +70,10 @@ const SignUp = () => {
         </div>
         {passwordError && <p>{passwordError} </p>}
         
-        <button onClick={handleSubmit}>Sign Up</button>
+        <button onClick={handleSubmit}>Sign In</button>
         </div>
     )
     
 }
 
-export default SignUp
+export default SignIn

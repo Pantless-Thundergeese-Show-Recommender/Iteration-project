@@ -3,7 +3,6 @@ const userController = {}
 const bcrypt = require('bcrypt');
 
 userController.signup = async (req, res, next) => {
-    console.log('mdw start')
     try {
         const { username, password } = req.body;
         const user = await User.findOne({username: username});
@@ -12,9 +11,11 @@ userController.signup = async (req, res, next) => {
             res.locals.newUser = {message: "User already exist"}
         } else {
             console.log("user not exist")
-            const newUser = await User.create({username: username, password: password});
+            console.log('received from the front',username,password)
+            const newUser = await User.create( {username: username, password: password} );
             res.locals.newUser = {message: "User created", newUser: newUser};
         }
+        console.log('hey')
         return next();
     }
     catch(err) {return next(err)};

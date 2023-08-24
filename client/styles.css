@@ -13,6 +13,8 @@ font-family: 'Poppins', sans-serif;
   color: rgb(163, 123, 24);
 }; */
 
+
+
 body {
   background-color: rgb(247, 243, 221);
 }
@@ -98,4 +100,22 @@ body {
 
 .right-image{
   right: 20px;
+}
+
+.formGroup{
+  margin-bottom: 1 rem;
+}
+
+.formGroup label{
+  padding-right: 1 rem;
+  display: inline-block;
+  width: 6rem;
+}
+
+.signUpForm{
+  border: solid 0.0125rem #000;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  display: inline-block;
+  text-align: left;
 }
